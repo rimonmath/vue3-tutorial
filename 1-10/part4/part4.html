@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue JS 3 Bangla Tutorial</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="vue.global.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2>Vue JS 3 Bangla Tutorial</h2>
+    </header>
+
+    <div id="app">
+      <h3>Welcome to {{ tutorialInfo.name }}</h3>
+
+      <p>
+        Get the source code at
+        <a :href="tutorialInfo.githubLink">Github</a>
+      </p>
+
+      <br />
+
+      <p v-html="htmlCode"></p>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
