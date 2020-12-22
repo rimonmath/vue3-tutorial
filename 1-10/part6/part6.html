@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue JS 3 Bangla Tutorial</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="vue.global.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2>Vue JS 3 Bangla Tutorial</h2>
+    </header>
+
+    <div id="app">
+      <h2>Counter: {{ count }}</h2>
+      <button @click="increase($event, 1)">Increment 1</button>
+      <button @click="decrease(1)">Decrement 1</button>
+      <br />
+      <button @click="increase(2)">Increment 2</button>
+      <button @click="decrease(2)">Decrement 2</button>
+      <br />
+      <hr />
+
+      <button @click="test($event)">Test</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
