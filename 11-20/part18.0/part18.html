@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue JS 3 Bangla Tutorial</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="vue.global.js"></script>
+  </head>
+  <body>
+    <header>
+      <h2>Vue JS 3 Bangla Tutorial</h2>
+    </header>
+
+    <div id="app">
+      <h1 class="app-title">Ticket booking app</h1>
+      <div class="ticket-app">
+        <div class="confirmed-dialog" v-if="confirmed">
+
+        </div>
+
+
+        <div class="ticket-app__top">
+          <div class="seat-states">
+            <div class="seat-state" v-for="(value, key) in seatStates">
+              <div
+                class="seat-state__color"
+                :style="{backgroundColor: value.color}"
+              ></div>
+              <div class="seat-state__text">{{ value.text }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ticket-app__bottom">
+          <div class="ticket-app__left">
+            <div class="bus">
+              <div class="bus__top">
+                <div class="bus__door">Door</div>
+                <div class="bus__driver">Driver</div>
+              </div>
+
+              <div class="seats">
+                <div
+                  class="seat"
+                  :class="{
+                    'seat__sold': seat.type === 'sold',
+                    'seat__booked': seat.type === 'booked',
+                    'seat__selected': seat.type === 'selected'
+                    
+                  }"
+                  v-for="(seat, i) in seats"
+                  :key="seat.name"
+                  @click="handleClick(i)"
+                >
+                  {{seat.name}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="ticket-app__instruction"
+            v-if="selectedSeats.length === 0"
+          >
+            No seat selected <br />
+            Select some seats first
+          </div>
+
+          <div class="ticket-app__right" v-else>
+            <div class="cart">
+              <strong>Selected Seats</strong>
+              <table class="selected-seats">
+                <thead>
+                  <tr>
+                    <th>Seat</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(seat, i) in selectedSeats" :key="seat.name">
+                    <td>{{seat.name}}</td>
+                    <td>Tk. {{seat.price}}</td>
+                  </tr>
+
+                  <tr>
+                    <th>Total</th>
+                    <th>Tk. {{totalCost}}</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>
+               Have a coupon? <input type="text" placeholder="9 Digits Code"> 
+              </p>
+            </div>
+
+            <div class="info">
+              <input type="text" placeholder="Name" v-model="name" />
+              <input type="text" placeholder="Mobile" v-model="mobile" />
+            </div>
+
+            <button
+              class="confirm-button"
+              :class="{'confirm-button__disabled': selectedSeats.length === 0}"
+              :disabled="selectedSeats.length === 0"
+              @click="confirm"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
