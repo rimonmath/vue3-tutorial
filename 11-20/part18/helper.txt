@@ -1,0 +1,344 @@
+## Seat States JS
+===========================================================
+
+seatStates: {
+  sold: {
+    text: "Sold",
+    color: "#ff0000"
+  },
+  available: {
+    text: "Available",
+    color: "#fff"
+  },
+  booked: {
+    text: "Booked",
+    color: "gray"
+  },
+  selected: {
+    text: "Selected",
+    color: "#00ff00"
+  }
+}
+
+## Seat States HTML
+===========================================================
+
+<div class="seat-state" v-for="(value, key) in seatStates">
+  <div
+    class="seat-state__color"
+    :style="{backgroundColor: value.color}"
+  ></div>
+  <div class="seat-state__text">{{ value.text }}</div>
+</div>
+
+
+## Seats JS
+===========================================================
+seats: [
+  {
+    name: "A1",
+    type: "available",
+    price: 500
+  },
+  {
+    name: "A2",
+    type: "available",
+    price: 500
+  },
+  {
+    name: "A3",
+    type: "available",
+    price: 500
+  },
+  {
+    name: "A4",
+    type: "available",
+    price: 500
+  },
+  {
+    name: "B1",
+    type: "available",
+    price: 450
+  },
+  {
+    name: "B2",
+    type: "available",
+    price: 450
+  },
+  {
+    name: "B3",
+    type: "available",
+    price: 450
+  },
+  {
+    name: "B4",
+    type: "available",
+    price: 450
+  },
+  {
+    name: "C1",
+    type: "sold",
+    price: 500
+  },
+  {
+    name: "C2",
+    type: "sold",
+    price: 500
+  },
+  {
+    name: "C3",
+    type: "sold",
+    price: 500
+  },
+  {
+    name: "C4",
+    type: "sold",
+    price: 500
+  },
+  {
+    name: "D1",
+    type: "available",
+    price: 400
+  },
+  {
+    name: "D2",
+    type: "available",
+    price: 400
+  },
+  {
+    name: "D3",
+    type: "available",
+    price: 400
+  },
+  {
+    name: "D4",
+    type: "available",
+    price: 400
+  },
+  {
+    name: "E1",
+    type: "available",
+    price: 300
+  },
+  {
+    name: "E2",
+    type: "available",
+    price: 300
+  },
+  {
+    name: "E3",
+    type: "booked",
+    price: 300
+  },
+  {
+    name: "E4",
+    type: "booked",
+    price: 300
+  },
+  {
+    name: "F1",
+    type: "available",
+    price: 300
+  },
+  {
+    name: "F2",
+    type: "available",
+    price: 300
+  },
+  {
+    name: "F3",
+    type: "available",
+    price: 300
+  },
+  {
+    name: "F4",
+    type: "available",
+    price: 300
+  }
+]
+
+
+## Seats HTML
+===========================================================
+<div
+  class="seat"
+  :class="{
+    'seat--sold': seat.type === 'sold',
+    'seat--booked': seat.type === 'booked',
+    'seat--selected': seat.type === 'selected'
+    
+  }"
+  v-for="(seat, i) in seats"
+  :key="seat.name"
+>
+  {{seat.name}}
+</div>
+
+
+## Cart
+===========================================================
+
+<strong>Selected Seats</strong>
+<table class="selected-seats">
+  <thead>
+    <tr>
+      <th>Seat</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="(seat, i) in selectedSeats" :key="seat.name">
+      <td>{{seat.name}}</td>
+      <td>Tk. {{seat.price}}</td>
+    </tr>
+
+    <tr>
+      <th>Total</th>
+      <th>Tk. {{totalCost}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+## Total Cost
+===========================================================
+
+totalCost() {
+  let tc = 0;
+  this.selectedSeats.forEach((seat) => {
+    tc += seat.price;
+  });
+
+  return tc;
+}
+
+## Coupons
+===========================================================
+
+appliedCoupon: null,
+couponCode: "",
+coupons: [
+  {
+    code: "100TAKAOFF",
+    discount: 100
+  },
+  {
+    code: "200TAKAOFF",
+    discount: 200
+  }
+],
+
+
+## Watch Code
+===========================================================
+couponCode(newValue) {
+  if (newValue.length === 10) {
+    let searchedCoupons = this.coupons.filter(
+      (item) => item.code === newValue
+    );
+
+    if (searchedCoupons.length === 1) {
+      this.appliedCoupon = searchedCoupons[0];
+      this.couponCode = "";
+    } else {
+      alert("Coupon not valid!");
+    }
+  }
+}
+
+## Information
+===========================================================
+<div class="info">
+  <input type="text" placeholder="Name" v-model="name" />
+  <input type="text" placeholder="Mobile" v-model="mobile" />
+</div>
+
+<button
+  class="confirm-button"
+  @click="confirm"
+>
+  Confirm
+</button>
+
+
+## Confirm JS
+===========================================================
+confirm() {
+  if (!this.name || !this.mobile) {
+    alert("Please enter name and mobile");
+    return;
+  }
+
+  this.confirmed = true;
+},
+
+
+
+## Success
+===========================================================
+<div class="confirmed-dialog" v-if="confirmed">
+  <h3>Ticket confirmed!</h3>
+  <hr>
+  <br>
+  <table class="selected-seats">
+    <tr>
+      <th>Passenger Name</th>
+    <td>{{name}}</td>
+    <tr>
+      <th>Passenger Contact</th>
+    <td>{{mobile}}</td>
+    
+    </tr>
+    <tr>
+      <th>Seats:</th>
+      <td>
+        <div v-for="(seat, i) in selectedSeats" :key="seat.name">
+          <div>
+            {{seat.name}}
+          </div>
+
+        </div>
+      </td>
+
+      
+    </tr>
+    <tr>
+      <th>Total Cost</th>
+      <td>Tk. {{totalCost}}</td>
+    </tr>
+
+  </table>
+
+  <br>
+
+  <button
+    class="confirm-button"
+    @click="resetData"
+  >
+    Book Again
+  </button>
+</div>
+
+
+
+
+## Reset Data
+===========================================================
+resetData() {
+  this.confirmed = false;
+  this.name = "";
+  this.mobile = "";
+  this.appliedCoupon = null;
+
+  this.seats.forEach((seat) => {
+    if (seat.type === "selected") {
+      seat.type = "sold";
+    }
+  });
+}
+
+
+
+HW
+=========================
+Disable button

@@ -1,9 +1,9 @@
 var app = Vue.createApp({
   data() {
     return {
+      confirmed: false,
       name: "",
       mobile: "",
-      confirmed: false,
       appliedCoupon: null,
       couponCode: "",
       coupons: [
@@ -34,6 +34,7 @@ var app = Vue.createApp({
           color: "#00ff00"
         }
       },
+
       seats: [
         {
           name: "A1",
@@ -161,9 +162,9 @@ var app = Vue.createApp({
 
   computed: {
     selectedSeats() {
-      return this.seats.filter((seat) => seat.type === "selected");
+      let sc = this.seats.filter((item) => item.type === "selected");
+      return sc;
     },
-
     totalCost() {
       let tc = 0;
       this.selectedSeats.forEach((seat) => {
@@ -181,18 +182,20 @@ var app = Vue.createApp({
   methods: {
     handleClick(i) {
       let clickedSeat = this.seats[i];
-      if (clickedSeat.type === "booked" || clickedSeat.type === "sold") {
+      if (clickedSeat.type === "sold" || clickedSeat.type === "booked") {
         alert("You can not select this seat");
         return;
       }
 
-      if (clickedSeat.type === "available" && this.selectedSeats.length > 2) {
-        alert("You can select more than 3 seats!");
+      if (clickedSeat.type == "available" && this.selectedSeats.length > 2) {
+        alert("You can not select more than 3 seats");
         return;
       }
 
       clickedSeat.type =
         clickedSeat.type === "selected" ? "available" : "selected";
+
+      console.log(clickedSeat);
     },
 
     confirm() {
@@ -203,6 +206,7 @@ var app = Vue.createApp({
 
       this.confirmed = true;
     },
+
     resetData() {
       this.confirmed = false;
       this.name = "";

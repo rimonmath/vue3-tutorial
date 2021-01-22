@@ -13,54 +13,40 @@
     </header>
 
     <div id="app">
-      <h1 class="app-title">Ticket booking app</h1>
+      <h1 class="app-title">Ticket Booking App</h1>
       <div class="ticket-app">
         <div class="confirmed-dialog" v-if="confirmed">
           <h3>Ticket confirmed!</h3>
-          <hr>
-          <br>
+          <hr />
+          <br />
           <table class="selected-seats">
             <tr>
               <th>Passenger Name</th>
-            <td>{{name}}</td>
+              <td>{{name}}</td>
+            </tr>
+
             <tr>
               <th>Passenger Contact</th>
-            <td>{{mobile}}</td>
-            
+              <td>{{mobile}}</td>
             </tr>
             <tr>
               <th>Seats:</th>
               <td>
                 <div v-for="(seat, i) in selectedSeats" :key="seat.name">
-                  <div>
-                    {{seat.name}}
-                  </div>
-
+                  <div>{{seat.name}}</div>
                 </div>
               </td>
-
-             
             </tr>
             <tr>
               <th>Total Cost</th>
               <td>Tk. {{totalCost}}</td>
             </tr>
-
           </table>
 
-          <br>
+          <br />
 
-          <button
-              class="confirm-button"
-              @click="resetData"
-            >
-              Book Again
-            </button>
-
-
+          <button class="confirm-button" @click="resetData">Book Again</button>
         </div>
-
-
         <div class="ticket-app__top">
           <div class="seat-states">
             <div class="seat-state" v-for="(value, key) in seatStates">
@@ -72,7 +58,6 @@
             </div>
           </div>
         </div>
-
         <div class="ticket-app__bottom">
           <div class="ticket-app__left">
             <div class="bus">
@@ -104,7 +89,7 @@
             class="ticket-app__instruction"
             v-if="selectedSeats.length === 0"
           >
-            No seat selected <br />
+            No seats selected <br />
             Select some seats first
           </div>
 
@@ -125,9 +110,10 @@
                   </tr>
 
                   <tr v-if="appliedCoupon !== null">
-                    <td>Discount</td>
-                    <td>Tk. -{{appliedCoupon.discount}}</td>
+                    <th>Discount</th>
+                    <th>Tk. -{{appliedCoupon.discount}}</th>
                   </tr>
+
                   <tr>
                     <th>Total</th>
                     <th>Tk. {{totalCost}}</th>
@@ -136,12 +122,15 @@
               </table>
 
               <p v-if="appliedCoupon === null">
-                Have a coupon? <input type="text" placeholder="10 Digits Code" v-model="couponCode"> 
+                Have a coupon?
+                <input
+                  type="text"
+                  v-model="couponCode"
+                  placeholder="10 Digits Code"
+                />
               </p>
-              <p v-else>
-              Applied Coupon: {{ appliedCoupon.code }}
-              </p>
-              
+
+              <p v-else>Applied Coupon : {{ appliedCoupon.code }}</p>
             </div>
 
             <div class="info">
@@ -149,14 +138,7 @@
               <input type="text" placeholder="Mobile" v-model="mobile" />
             </div>
 
-            <button
-              class="confirm-button"
-              :class="{'confirm-button__disabled': selectedSeats.length === 0}"
-              :disabled="selectedSeats.length === 0"
-              @click="confirm"
-            >
-              Confirm
-            </button>
+            <button class="confirm-button" @click="confirm">Confirm</button>
           </div>
         </div>
       </div>
