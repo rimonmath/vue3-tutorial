@@ -1,4 +1,4 @@
-# vue3-tutorial
+# Vue JS 3 Bangla Tutorial
 
 This is the source code of a Vue JS 3 Bangla Tutorial series.
 
