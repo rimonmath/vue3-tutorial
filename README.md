@@ -8,3 +8,10 @@ https://youtube.com/playlist?list=PLZ8kLhUbDAhADR0nUr2rwhOD0smxVZX-x
 
 ## Vite project (vue3-vite) link
 https://github.com/rimonmath/vue3-vite
+
+
+## Pharmacy Management project link
+https://github.com/rimonmath/pharmacy-management
+
+
+
